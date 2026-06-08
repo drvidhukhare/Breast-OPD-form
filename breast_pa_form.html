@@ -1,0 +1,1696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Breast Oncology Assessment — Dr Vidhu Khare</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --p:#1a4a5c;--pm:#256a82;--pl:#e6f2f7;
+  --acc:#c9623f;--yes:#2e7d4f;--yesbg:#eaf5ee;
+  --no:#b83232;--nobg:#fdecea;
+  --bg:#f0f4f7;--card:#fff;--bdr:#dce4ec;
+  --txt:#1c2b35;--mut:#5f7585;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--txt);font-size:14px;line-height:1.55;min-height:100vh}
+.hdr{background:linear-gradient(135deg,#1a4a5c,#1e6a84);color:#fff;padding:16px 18px 0;position:sticky;top:0;z-index:100;box-shadow:0 2px 14px rgba(0,0,0,.18)}
+.hdr-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px}
+.hdr h1{font-size:17px;font-weight:700}
+.hdr-sub{font-size:11.5px;opacity:.7;margin-top:2px}
+.pbtn{background:rgba(255,255,255,.18);color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:7px;padding:7px 15px;font-size:12.5px;font-weight:600;cursor:pointer;transition:.2s}
+.pbtn:hover{background:rgba(255,255,255,.28)}
+.tabs{display:flex;gap:3px;margin-top:14px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex-shrink:0;background:rgba(255,255,255,.12);color:rgba(255,255,255,.65);border:none;border-radius:8px 8px 0 0;padding:9px 15px;font-size:12.5px;font-weight:500;cursor:pointer;transition:.2s;white-space:nowrap}
+.tab:hover{color:#fff;background:rgba(255,255,255,.2)}
+.tab.active{background:var(--bg);color:var(--p);font-weight:700;border-bottom:3px solid var(--acc)}
+.panels{max-width:860px;margin:0 auto;padding:16px}
+.panel{display:none}.panel.active{display:block}
+.card{background:var(--card);border:1px solid var(--bdr);border-radius:12px;padding:18px;margin-bottom:14px}
+.ctitle{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--p);margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid var(--pl)}
+.f{margin-bottom:13px}.f:last-child{margin-bottom:0}
+.f>label,.flabel{display:block;font-size:12.5px;font-weight:600;color:var(--txt);margin-bottom:5px}
+.hint{font-size:11px;color:var(--mut);margin-top:3px}
+input[type=text],input[type=number],input[type=date],select,textarea{width:100%;border:1.5px solid var(--bdr);border-radius:8px;padding:9px 11px;font-size:13px;font-family:inherit;color:var(--txt);background:#fff;transition:border-color .18s;appearance:none;-webkit-appearance:none}
+select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235f7585' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:30px}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px rgba(26,74,92,.09)}
+textarea{resize:vertical;min-height:68px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media(max-width:600px){.g2,.g3,.g4{grid-template-columns:1fr 1fr}}
+@media(max-width:380px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.yn{display:flex;gap:6px}
+.yn-y,.yn-n{flex:1;padding:9px 8px;border:1.5px solid var(--bdr);border-radius:8px;background:#fff;font-size:13px;font-weight:600;cursor:pointer;text-align:center;transition:.15s;color:var(--mut);user-select:none;-webkit-user-select:none;touch-action:manipulation;-webkit-tap-highlight-color:transparent;font-family:inherit}
+.yn-y:hover{border-color:var(--yes)}.yn-n:hover{border-color:var(--no)}
+.yn-y.on{background:var(--yesbg);border-color:var(--yes);color:var(--yes)}
+.yn-n.on{background:var(--nobg);border-color:var(--no);color:var(--no)}
+.cond{display:none}.cond.show{display:block}
+.ci{margin-top:8px;padding:12px 14px;background:var(--pl);border-left:3px solid var(--pm);border-radius:0 8px 8px 0}
+.pills{display:flex;flex-wrap:wrap;gap:7px}
+.pill{padding:6px 14px;border:1.5px solid var(--bdr);border-radius:30px;font-size:12px;font-weight:500;cursor:pointer;background:#fff;color:var(--mut);transition:.15s;user-select:none;touch-action:manipulation;-webkit-tap-highlight-color:transparent;font-family:inherit;appearance:none;-webkit-appearance:none}
+.pill:hover{border-color:var(--p);color:var(--p)}
+.pill.on{background:var(--p);border-color:var(--p);color:#fff}
+.nrs{display:flex;gap:4px}
+.nb{flex:1;padding:7px 2px;border:1.5px solid var(--bdr);border-radius:6px;background:#fff;font-size:11px;font-weight:700;cursor:pointer;text-align:center;transition:.15s;color:var(--mut);min-width:0;touch-action:manipulation;-webkit-tap-highlight-color:transparent;font-family:inherit}
+.nb.on{background:var(--p);border-color:var(--p);color:#fff}
+.sh{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--mut);margin:14px 0 10px;padding-bottom:5px;border-bottom:1px solid var(--bdr)}
+hr.div{border:0;border-top:1px dashed var(--bdr);margin:12px 0}
+.rrow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media(max-width:500px){.rrow{grid-template-columns:1fr 1fr}}
+.ritem label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--mut)}
+.chklist{display:flex;flex-wrap:wrap;gap:8px}
+.chi{display:flex;align-items:center;gap:7px;padding:8px 12px;border:1.5px solid var(--bdr);border-radius:8px;cursor:pointer;font-size:12.5px;transition:.15s;background:#fff}
+.chi:hover{border-color:var(--p)}
+.chi input[type=checkbox]{width:15px;height:15px;accent-color:var(--p);cursor:pointer;flex-shrink:0}
+/* Exam not-performed banner */
+.exam-skip{background:#fff8e6;border:1.5px solid #e6c84a;border-radius:8px;padding:10px 14px;font-size:12.5px;color:#7a5c00;font-weight:600;margin-top:8px}
+/* Visit type pills — larger */
+.vtype .pill{padding:9px 20px;font-size:13px}
+footer{text-align:center;padding:20px 16px;font-size:12px;color:var(--mut);border-top:1px solid var(--bdr);margin-top:8px}
+footer strong{color:var(--p)}
+.tab svg{display:inline-block;vertical-align:-2px;margin-right:5px;flex-shrink:0}
+footer .cite{font-size:10.5px;margin-top:6px;line-height:1.7;color:#8a9aaa}
+@media print{body,html{display:none}}
+/* PA card teal border */
+.card{border-left:3px solid var(--bdr)}
+.card-pa{border-left:3px solid var(--p)}
+/* Clinician Assessment card */
+.card-clin{background:#fdf0f3;border:1px solid #e0aac0;border-left:4px solid #b06080}
+.ctitle-clin{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#9c2060;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #f0c0d8}
+/* Toolbar buttons */
+.hdr-btns{display:flex;gap:6px;flex-wrap:wrap}
+.pbtn{background:rgba(255,255,255,.18);color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:7px;padding:6px 12px;font-size:11.5px;font-weight:600;cursor:pointer;transition:.2s;white-space:nowrap}
+.pbtn:hover{background:rgba(255,255,255,.28)}
+.pbtn-reset{background:rgba(255,100,80,.25);border-color:rgba(255,150,130,.4)}
+.pbtn-reset:hover{background:rgba(255,100,80,.38)}
+/* Clinician conditional inner */
+.ci-clin{margin-top:8px;padding:12px 14px;background:#fef5f8;border-left:3px solid #d080a0;border-radius:0 8px 8px 0}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-top">
+    <div>
+      <h1>Breast Oncology Patient Assessment</h1>
+      <div class="hdr-sub">Clinician Pre-Consultation Form &nbsp;·&nbsp; Dr Vidhu Khare</div>
+    </div>
+    <div class="hdr-btns">
+      <button class="pbtn" onclick="generatePrint()">🖨 Print</button>
+      <button class="pbtn" onclick="saveShare()">💾 Save &amp; Share</button>
+      <label class="pbtn" for="load-inp" style="cursor:pointer">📂 Load</label>
+      <input type="file" id="load-inp" accept=".html" style="display:none" onchange="loadForm(this)">
+      <button class="pbtn pbtn-reset" onclick="resetForm()">↺ Reset</button>
+    </div>
+  </div>
+  <nav class="tabs">
+    <button class="tab active" onclick="sw(0)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="16" y1="11" x2="22" y2="11"/></svg>New Patient</button>
+    <button class="tab" onclick="sw(1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Benign / High-Risk (F/U)</button>
+    <button class="tab" onclick="sw(2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7z"/><line x1="8.5" y1="8.5" x2="15.5" y2="15.5"/></svg>On Treatment</button>
+    <button class="tab" onclick="sw(3)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><polyline points="9 16 11 18 15 14"/></svg>Follow-Up</button>
+  </nav>
+</header>
+
+<div class="panels">
+
+<!-- ══════════════════════════════════════
+     PANEL 0 — NEW PATIENT
+══════════════════════════════════════ -->
+<div class="panel active" id="p0">
+
+  <div class="card card-pa">
+    <div class="ctitle">Patient Demographics</div>
+    <div class="g3">
+      <div class="f"><label>Full Name</label><input type="text" placeholder="First, Last"></div>
+      <div class="f"><label>Date of Birth</label><input type="date" id="dob0" onchange="calcAge('dob0','age0')"></div>
+      <div class="f"><label>Patient UHID</label><input type="text"></div>
+    </div>
+    <div class="g3" style="margin-top:12px">
+      <div class="f"><label>Age (years)</label><input type="number" min="0" max="120" id="age0" readonly style="background:#f5f7f9;color:var(--mut)" title="Auto-calculated from DOB"></div>
+      <div class="f"><label>Date of Visit</label><input type="date"></div>
+      <div class="f"><label>Clinician Name</label><input type="text"></div>
+    </div>
+    <div class="g2" style="margin-top:12px">
+      <div class="f"><label>Contact Number</label><input type="text"></div>
+      <div class="f"><label>Gender</label>
+        <select><option value="">—</option><option>Female</option><option>Male</option><option>Other / prefer not to say</option></select>
+      </div>
+    </div>
+  </div>
+
+  <!-- VISIT TYPE -->
+  <div class="card card-pa">
+    <div class="ctitle">Visit Type</div>
+    <div class="f">
+      <label>How is this patient presenting?</label>
+      <div class="pills vtype" id="vtype-pills">
+        <button type="button" class="pill on" onclick="visitType(this,'new')">New Presentation</button>
+        <button type="button" class="pill" onclick="visitType(this,'ref')">Referred from Another Centre</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- REFERRAL DETAILS (conditional) -->
+  <div class="cond" id="ref-section">
+    <div class="card">
+      <div class="ctitle">Referral Details</div>
+      <div class="g2">
+        <div class="f"><label>Referring Institution</label><input type="text"></div>
+        <div class="f"><label>Referring Clinician</label><input type="text"></div>
+      </div>
+      <div class="f"><label>Date of Referral</label><input type="date"></div>
+      <div class="f"><label>Summary from referral letter</label><textarea placeholder="Key clinical details from the referral letter"></textarea></div>
+    </div>
+    <div class="card">
+      <div class="ctitle">Documents Received from Referring Centre</div>
+      <p class="hint" style="margin-bottom:12px">Per ACCC Transitions of Care guidelines 2024 — tick all items received</p>
+      <div class="f">
+        <div class="chklist">
+          <label class="chi"><input type="checkbox"> Referral letter</label>
+          <label class="chi"><input type="checkbox"> Mammogram images / CD</label>
+          <label class="chi"><input type="checkbox"> Ultrasound images / CD</label>
+          <label class="chi"><input type="checkbox"> MRI images / CD</label>
+          <label class="chi"><input type="checkbox"> Mammogram report</label>
+          <label class="chi"><input type="checkbox"> Ultrasound report</label>
+          <label class="chi"><input type="checkbox"> MRI report</label>
+          <label class="chi"><input type="checkbox"> Pathology / biopsy report</label>
+          <label class="chi"><input type="checkbox"> Histological slides / blocks</label>
+          <label class="chi"><input type="checkbox"> MDT meeting minutes</label>
+          <label class="chi"><input type="checkbox"> Genetic testing report</label>
+          <label class="chi"><input type="checkbox"> Current medication list</label>
+        </div>
+      </div>
+      <div class="f" style="margin-top:10px"><label>Outstanding documents — action required</label><textarea placeholder="Note which documents are missing and who to contact"></textarea></div>
+    </div>
+  </div>
+
+  <!-- CHIEF COMPLAINT -->
+  <div class="card card-pa">
+    <div class="ctitle">Chief Complaint</div>
+    <div class="f">
+      <label>Presenting complaint(s) — select all that apply</label>
+      <div class="pills" id="cc-pills">
+        <button type="button" class="pill" onclick="pillCC(this,'cc-lump')">Breast Lump</button>
+        <button type="button" class="pill" onclick="pillCC(this,'cc-pain')">Breast Pain</button>
+        <button type="button" class="pill" onclick="pillCC(this,'cc-nd')">Nipple Discharge</button>
+        <button type="button" class="pill" onclick="pillCC(this,'cc-skin')">Skin / Nipple Change</button>
+        <button type="button" class="pill" onclick="pillCC(this,null)">Screening Finding</button>
+        <button type="button" class="pill" onclick="pillCC(this,null)">High-Risk Surveillance</button>
+        <button type="button" class="pill" onclick="pillCC(this,null)">Axillary Lump</button>
+        <button type="button" class="pill" onclick="pillCC(this,null)">Other</button>
+      </div>
+    </div>
+    <div class="f" style="margin-top:10px">
+      <label>Duration of symptoms</label>
+      <input type="text" placeholder="e.g. 3 weeks, 2 months">
+    </div>
+  </div>
+
+  <!-- LUMP -->
+  <div class="card cond" id="cc-lump">
+    <div class="ctitle">Breast Lump — Details</div>
+    <div class="g2">
+      <div class="f"><label>Side</label>
+        <select><option value="">—</option><option>Left</option><option>Right</option><option>Bilateral</option></select>
+      </div>
+      <div class="f"><label>Quadrant / Location</label>
+        <select><option value="">—</option><option>Upper Outer (UOQ)</option><option>Upper Inner (UIQ)</option><option>Lower Outer (LOQ)</option><option>Lower Inner (LIQ)</option><option>Central / Retroareolar</option><option>Axillary Tail</option><option>Diffuse</option></select>
+      </div>
+    </div>
+    <div class="g2">
+      <div class="f"><label>Change in size</label>
+        <select><option value="">—</option><option>Increasing</option><option>Stable</option><option>Decreasing</option><option>Fluctuates (cycle-related)</option><option>Uncertain</option></select>
+      </div>
+      <div class="f"><label>Approximate size (patient-reported)</label><input type="text" placeholder="e.g. 2 cm, marble-sized"></div>
+    </div>
+    <div class="sh">Associated features</div>
+    <div class="g2">
+      <div class="f"><label>Painful?</label>
+        <div class="yn" data-cond="lump-nrs"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="lump-nrs"><div class="ci"><div class="f"><label>NRS Pain Score (0–10)</label>
+          <div class="nrs"><button type="button" class="nb" onclick="nrst(this)">0</button><button type="button" class="nb" onclick="nrst(this)">1</button><button type="button" class="nb" onclick="nrst(this)">2</button><button type="button" class="nb" onclick="nrst(this)">3</button><button type="button" class="nb" onclick="nrst(this)">4</button><button type="button" class="nb" onclick="nrst(this)">5</button><button type="button" class="nb" onclick="nrst(this)">6</button><button type="button" class="nb" onclick="nrst(this)">7</button><button type="button" class="nb" onclick="nrst(this)">8</button><button type="button" class="nb" onclick="nrst(this)">9</button><button type="button" class="nb" onclick="nrst(this)">10</button></div>
+        </div></div></div>
+      </div>
+      <div class="f"><label>Skin changes over lump?</label>
+        <div class="yn" data-cond="lump-skin"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="lump-skin"><div class="ci"><div class="f"><label>Type</label>
+          <select><option value="">—</option><option>Erythema</option><option>Peau d'orange</option><option>Dimpling / tethering</option><option>Ulceration</option><option>Thickening</option><option>Other</option></select>
+        </div></div></div>
+      </div>
+      <div class="f"><label>Nipple retraction / inversion?</label>
+        <div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+      </div>
+      <div class="f"><label>Associated nipple discharge?</label>
+        <div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAIN -->
+  <div class="card cond" id="cc-pain">
+    <div class="ctitle">Breast Pain — Details</div>
+    <div class="g2">
+      <div class="f"><label>Side</label>
+        <select><option value="">—</option><option>Left</option><option>Right</option><option>Bilateral</option></select>
+      </div>
+      <div class="f"><label>Character</label>
+        <select><option value="">—</option><option>Cyclical (worse pre-menstrually)</option><option>Non-cyclical</option><option>Chest wall / musculoskeletal</option><option>Uncertain</option></select>
+      </div>
+    </div>
+    <div class="f"><label>NRS Pain Score (0–10)</label>
+      <div class="nrs"><button type="button" class="nb" onclick="nrst(this)">0</button><button type="button" class="nb" onclick="nrst(this)">1</button><button type="button" class="nb" onclick="nrst(this)">2</button><button type="button" class="nb" onclick="nrst(this)">3</button><button type="button" class="nb" onclick="nrst(this)">4</button><button type="button" class="nb" onclick="nrst(this)">5</button><button type="button" class="nb" onclick="nrst(this)">6</button><button type="button" class="nb" onclick="nrst(this)">7</button><button type="button" class="nb" onclick="nrst(this)">8</button><button type="button" class="nb" onclick="nrst(this)">9</button><button type="button" class="nb" onclick="nrst(this)">10</button></div>
+    </div>
+    <div class="g2">
+      <div class="f"><label>Relieving factors</label><input type="text" placeholder="e.g. support bra, analgesia"></div>
+      <div class="f"><label>Aggravating factors</label><input type="text" placeholder="e.g. movement, palpation"></div>
+    </div>
+  </div>
+
+  <!-- NIPPLE DISCHARGE -->
+  <div class="card cond" id="cc-nd">
+    <div class="ctitle">Nipple Discharge — Details</div>
+    <div class="g2">
+      <div class="f"><label>Side</label>
+        <select><option value="">—</option><option>Unilateral</option><option>Bilateral</option></select>
+      </div>
+      <div class="f"><label>Onset</label>
+        <select><option value="">—</option><option>Spontaneous</option><option>Expressed only</option></select>
+      </div>
+    </div>
+    <div class="g2">
+      <div class="f"><label>Character / Colour</label>
+        <select><option value="">—</option><option>Bloody / blood-stained</option><option>Serous (clear / straw-coloured)</option><option>Milky</option><option>Green / brown</option><option>Purulent</option><option>Other</option></select>
+      </div>
+      <div class="f"><label>Duct involvement</label>
+        <select><option value="">—</option><option>Single duct</option><option>Multiple ducts</option><option>Uncertain</option></select>
+      </div>
+    </div>
+    <div class="g2">
+      <div class="f"><label>Bloody discharge? <span style="color:var(--no);font-size:11px">(high-risk feature)</span></label>
+        <div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+      </div>
+      <div class="f"><label>Associated lump?</label>
+        <div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SKIN / NIPPLE CHANGE -->
+  <div class="card cond" id="cc-skin">
+    <div class="ctitle">Skin / Nipple Change — Details</div>
+    <div class="g2">
+      <div class="f"><label>Type of change</label>
+        <select><option value="">—</option><option>Skin thickening</option><option>Erythema / redness</option><option>Peau d'orange</option><option>Dimpling / tethering</option><option>Nipple retraction (new)</option><option>Nipple eczema / Paget's-like</option><option>Ulceration</option><option>Inflammatory change (whole breast)</option><option>Other</option></select>
+      </div>
+      <div class="f"><label>Side</label>
+        <select><option value="">—</option><option>Left</option><option>Right</option><option>Bilateral</option></select>
+      </div>
+    </div>
+    <div class="f"><label>Description</label><textarea placeholder="Describe the change in detail"></textarea></div>
+  </div>
+
+  <!-- PREVIOUS INVESTIGATIONS -->
+  <div class="card card-pa">
+    <div class="ctitle">Previous Investigations</div>
+    <p class="hint" style="margin-bottom:12px">Complete for all patients — even new presentations may have had prior imaging or biopsies</p>
+    <div class="sh">Prior Imaging</div>
+    <div class="g2">
+      <div class="f"><label>Previous mammogram?</label>
+        <div class="yn" data-cond="prev-mx"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="prev-mx"><div class="ci">
+          <div class="g3">
+            <div class="f"><label>Date</label><input type="date"></div>
+            <div class="f"><label>BI-RADS</label>
+              <select><option value="">—</option><option>1 — Negative</option><option>2 — Benign</option><option>3 — Probably benign</option><option>4A — Low suspicion</option><option>4B — Moderate suspicion</option><option>4C — High suspicion</option><option>5 — Highly malignant</option><option>6 — Known malignancy</option></select>
+            </div>
+            <div class="f"><label>Where performed</label><input type="text"></div>
+          </div>
+        </div></div>
+      </div>
+      <div class="f"><label>Previous ultrasound?</label>
+        <div class="yn" data-cond="prev-us"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="prev-us"><div class="ci">
+          <div class="g2">
+            <div class="f"><label>Date</label><input type="date"></div>
+            <div class="f"><label>BI-RADS</label>
+              <select><option value="">—</option><option>1 — Negative</option><option>2 — Benign</option><option>3 — Probably benign</option><option>4A — Low suspicion</option><option>4B — Moderate suspicion</option><option>4C — High suspicion</option><option>5 — Highly malignant</option><option>6 — Known malignancy</option></select>
+            </div>
+          </div>
+        </div></div>
+      </div>
+      <div class="f"><label>Previous MRI breast?</label>
+        <div class="yn" data-cond="prev-mri"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="prev-mri"><div class="ci">
+          <div class="g2">
+            <div class="f"><label>Date</label><input type="date"></div>
+            <div class="f"><label>Key findings</label><input type="text"></div>
+          </div>
+        </div></div>
+      </div>
+      <div class="f"><label>Previous axillary ultrasound?</label>
+        <div class="yn" data-cond="prev-axus"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="prev-axus"><div class="ci">
+          <div class="f"><label>Findings</label>
+            <select><option value="">—</option><option>Normal nodes</option><option>Abnormal — biopsy not done</option><option>Abnormal — biopsy done</option></select>
+          </div>
+        </div></div>
+      </div>
+    </div>
+    <div class="sh">Prior Biopsy / Histopathology</div>
+    <div class="f"><label>Previous breast biopsy / histopathology?</label>
+      <div class="yn" data-cond="prev-bx"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+      <div class="cond" id="prev-bx"><div class="ci">
+        <div class="g2">
+          <div class="f"><label>Biopsy type</label>
+            <select><option value="">—</option><option>FNAC</option><option>Core needle biopsy (CNB)</option><option>Vacuum-assisted biopsy (VAB)</option><option>Excision biopsy</option></select>
+          </div>
+          <div class="f"><label>Date</label><input type="date"></div>
+        </div>
+        <div class="f"><label>Pathological result</label>
+          <select><option value="">—</option><option>B1 — Normal / unsatisfactory</option><option>B2 — Benign</option><option>B3 — Uncertain malignant potential (ADH / ALH / LCIS / FEA / papilloma)</option><option>B4 — Suspicious of malignancy</option><option>B5a — DCIS</option><option>B5b — Invasive carcinoma (IDC)</option><option>B5b — Invasive carcinoma (ILC)</option><option>B5b — Invasive carcinoma (other)</option></select>
+        </div>
+        <div class="sh" style="margin-top:10px">Receptor Status (if invasive / DCIS)</div>
+        <div class="rrow">
+          <div class="ritem f"><label>ER</label><select><option value="">—</option><option>Positive</option><option>Negative</option></select></div>
+          <div class="ritem f"><label>PR</label><select><option value="">—</option><option>Positive</option><option>Negative</option></select></div>
+          <div class="ritem f"><label>HER2</label><select><option value="">—</option><option>Positive (3+)</option><option>Equivocal (2+)</option><option>Negative</option></select></div>
+          <div class="ritem f"><label>Ki67 (%)</label><input type="number" min="0" max="100"></div>
+        </div>
+        <div class="g2" style="margin-top:12px">
+          <div class="f"><label>Grade</label>
+            <select><option value="">—</option><option>Grade 1</option><option>Grade 2</option><option>Grade 3</option></select>
+          </div>
+          <div class="f"><label>Slides available for review?</label>
+            <div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+          </div>
+        </div>
+      </div></div>
+    </div>
+    <div class="sh">Prior MDT Discussion</div>
+    <div class="f"><label>Previous MDT discussion?</label>
+      <div class="yn" data-cond="prev-mdt"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+      <div class="cond" id="prev-mdt"><div class="ci">
+        <div class="f"><label>MDT outcome / recommendation</label><textarea placeholder="Summarise MDT decision"></textarea></div>
+      </div></div>
+    </div>
+    <div class="sh">Prior Treatment (if any)</div>
+    <div class="g2">
+      <div class="f"><label>Any prior breast treatment?</label>
+        <div class="yn" data-cond="prev-tx"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="prev-tx"><div class="ci">
+          <div class="f"><label>Details</label><textarea placeholder="e.g. Neoadjuvant chemo started, 2 cycles AC completed at referring centre"></textarea></div>
+        </div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MENSTRUAL / REPRODUCTIVE -->
+  <div class="card card-pa">
+    <div class="ctitle">Menstrual &amp; Reproductive History</div>
+    <div class="g3">
+      <div class="f"><label>Age at menarche (years)</label><input type="number" min="8" max="20"></div>
+      <div class="f"><label>Menopausal status</label>
+        <select id="meno-sel0" onchange="menoChg('meno-sel0','meno-post0','lmp0')">
+          <option value="">—</option><option value="pre">Pre-menopausal</option><option value="peri">Peri-menopausal</option><option value="post">Post-menopausal</option>
+        </select>
+      </div>
+      <div class="f" id="lmp0" style="display:none"><label>Last Menstrual Period</label><input type="date"></div>
+    </div>
+    <div class="cond" id="meno-post0" style="margin-bottom:12px"><div class="ci">
+      <div class="g2">
+        <div class="f"><label>Age at menopause</label><input type="number" min="30" max="70"></div>
+        <div class="f"><label>Type of menopause</label>
+          <select><option value="">—</option><option>Natural</option><option>Surgical (oophorectomy)</option><option>Chemotherapy-induced</option></select>
+        </div>
+      </div>
+    </div></div>
+    <div class="sh">Reproductive History</div>
+    <div class="g3">
+      <div class="f"><label>Parity</label><input type="number" min="0" max="20"></div>
+      <div class="f"><label>Age at first live birth</label><input type="number" min="10" max="60"></div>
+      <div class="f"><label>Number of live births</label><input type="number" min="0"></div>
+    </div>
+    <div class="g2" style="margin-top:12px">
+      <div class="f"><label>Ever breastfed?</label>
+        <div class="yn" data-cond="bf0"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="bf0"><div class="ci"><div class="f"><label>Total duration</label><input type="text" placeholder="e.g. 12 months"></div></div></div>
+      </div>
+      <div class="f"><label>Currently pregnant or lactating?</label>
+        <div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+      </div>
+    </div>
+    <div class="sh">Hormonal Exposures</div>
+    <div class="g2">
+      <div class="f"><label>Ever used oestrogen-containing OCP?</label>
+        <div class="yn" data-cond="ocp0"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="ocp0"><div class="ci">
+          <div class="g2">
+            <div class="f"><label>Duration</label><input type="text" placeholder="e.g. 5 years"></div>
+            <div class="f"><label>Currently on OCP?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+          </div>
+        </div></div>
+      </div>
+      <div class="f"><label>Ever used HRT?</label>
+        <div class="yn" data-cond="hrt0"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="hrt0"><div class="ci">
+          <div class="g2">
+            <div class="f"><label>Duration</label><input type="text" placeholder="e.g. 3 years"></div>
+            <div class="f"><label>Type</label>
+              <select><option value="">—</option><option>Combined (E+P)</option><option>Oestrogen-only</option><option>Unknown</option></select>
+            </div>
+          </div>
+          <div class="f"><label>Currently on HRT?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+        </div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RISK FACTORS -->
+  <div class="card card-pa">
+    <div class="ctitle">Risk Factor Assessment</div>
+    <p class="hint" style="margin-bottom:12px">Per ASBrS 2026 &amp; NCCN v3.2026 — formal risk assessment recommended ≥age 25; Tyrer-Cuzick model preferred for ≥30 years</p>
+    <div class="sh">Personal History</div>
+    <div class="g2">
+      <div class="f"><label>Personal history of breast cancer?</label>
+        <div class="yn" data-cond="phbc0"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="phbc0"><div class="ci">
+          <div class="g2">
+            <div class="f"><label>Year of diagnosis</label><input type="number" placeholder="YYYY"></div>
+            <div class="f"><label>Side</label><select><option value="">—</option><option>Left</option><option>Right</option><option>Bilateral</option></select></div>
+          </div>
+        </div></div>
+      </div>
+      <div class="f"><label>Personal history of ovarian cancer?</label>
+        <div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+      </div>
+      <div class="f"><label>Prior chest / mantle radiation?</label>
+        <div class="yn" data-cond="chrad0"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="chrad0"><div class="ci">
+          <div class="f"><label>Age at radiation</label><input type="number"><div class="hint">High-risk if age 10–30 (ASBrS 2026)</div></div>
+        </div></div>
+      </div>
+    </div>
+    <div class="sh">Family History</div>
+    <div class="g2">
+      <div class="f"><label>First-degree relative (FDR) with breast cancer?</label>
+        <div class="yn" data-cond="fdr0"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="fdr0"><div class="ci">
+          <div class="g3">
+            <div class="f"><label>Number affected</label><input type="number" min="1"></div>
+            <div class="f"><label>Youngest age at diagnosis</label><input type="number"></div>
+            <div class="f"><label>Bilateral in any FDR?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+          </div>
+        </div></div>
+      </div>
+      <div class="f"><label>Second-degree relative (SDR) with breast cancer?</label>
+        <div class="yn" data-cond="sdr0"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="sdr0"><div class="ci">
+          <div class="g2">
+            <div class="f"><label>Number affected</label><input type="number"></div>
+            <div class="f"><label>Youngest age at diagnosis</label><input type="number"></div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+    <div class="g3">
+      <div class="f"><label>Family history of ovarian cancer?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+      <div class="f"><label>Male relative with breast cancer?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+      <div class="f"><label>Family history of pancreatic cancer?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+    </div>
+    <div class="sh">Genetic Testing</div>
+    <div class="g2">
+      <div class="f"><label>Germline genetic testing done?</label>
+        <div class="yn" data-cond="gtest0"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="gtest0"><div class="ci">
+          <div class="f"><label>Result</label>
+            <select><option value="">—</option><option>BRCA1 pathogenic variant</option><option>BRCA2 pathogenic variant</option><option>PALB2 / other high-risk mutation</option><option>Moderate-risk variant (CHEK2, ATM)</option><option>Negative</option><option>VUS</option><option>Pending</option></select>
+          </div>
+        </div></div>
+      </div>
+      <div class="f"><label>Referred for genetic counselling?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+    </div>
+    <div class="g2" style="margin-top:4px">
+      <div class="f"><label>Tyrer-Cuzick lifetime risk (%) — if calculated</label><input type="number" min="0" max="100" placeholder="%"><div class="hint">Preferred model per ASBrS 2026 for ≥30 yrs</div></div>
+      <div class="f"><label>Risk category</label>
+        <select><option value="">—</option><option>Average risk (&lt;15% lifetime)</option><option>Intermediate risk (15–20%)</option><option>High risk (&gt;20% lifetime)</option><option>Not calculated</option></select>
+      </div>
+    </div>
+  </div>
+
+  <!-- PMHX -->
+  <div class="card card-pa">
+    <div class="ctitle">Past Medical &amp; Surgical History</div>
+    <div class="g2">
+      <div class="f"><label>Other malignancy?</label>
+        <div class="yn" data-cond="othmal0"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="othmal0"><div class="ci"><div class="f"><label>Specify</label><input type="text"></div></div></div>
+      </div>
+      <div class="f"><label>Prior breast surgery?</label>
+        <div class="yn" data-cond="prsx0"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="prsx0"><div class="ci"><div class="f"><label>Type and date</label><input type="text" placeholder="e.g. Excision biopsy L breast 2021"></div></div></div>
+      </div>
+    </div>
+    <div class="f"><label>Significant comorbidities</label><textarea placeholder="Diabetes, hypertension, cardiac disease, etc."></textarea></div>
+    <div class="g2">
+      <div class="f"><label>Current medications</label><textarea placeholder="Include hormonal / chemoprevention agents"></textarea></div>
+      <div class="f"><label>Known allergies</label><textarea placeholder="Drug allergies, contrast, latex, etc."></textarea></div>
+    </div>
+    <div class="f"><label>Smoking status</label>
+      <select><option value="">—</option><option>Never</option><option>Ex-smoker</option><option>Current smoker</option></select>
+    </div>
+  </div>
+
+  <!-- INVESTIGATIONS ORDERED -->
+  <div class="card card-pa">
+    <div class="ctitle">Investigations Ordered Today</div>
+    <div class="sh">Imaging</div>
+    <div class="g2">
+      <div class="f"><label>Mammogram</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+      <div class="f"><label>Breast Ultrasound</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+      <div class="f"><label>Axillary Ultrasound</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+      <div class="f"><label>MRI Breast</label>
+        <div class="yn" data-cond="mri-ind0"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="mri-ind0"><div class="ci"><div class="f"><label>Indication</label>
+          <select><option value="">—</option><option>High-risk screening (≥20% lifetime risk)</option><option>Extent of disease</option><option>Dense breasts / inconclusive imaging</option><option>Implant assessment</option><option>Occult primary</option><option>Other</option></select>
+        </div></div></div>
+      </div>
+    </div>
+    <div class="sh">Pathology</div>
+    <div class="g2">
+      <div class="f"><label>Core Needle Biopsy</label>
+        <div class="yn" data-cond="cnb0"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="cnb0"><div class="ci"><div class="f"><label>Site</label><input type="text" placeholder="e.g. L breast 10 o'clock, 3 cm FN"></div></div></div>
+      </div>
+      <div class="f"><label>FNAC</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+    </div>
+    <div class="f"><label>Blood / other tests</label><input type="text" placeholder="e.g. FBC, LFTs, tumour markers"></div>
+    <div class="sh">Metastatic Workup</div>
+    <p class="hint" style="margin-bottom:10px">Indicated for locally advanced (Stage III+) or high clinical suspicion of metastatic disease — NCCN v3.2026; not routinely for early-stage asymptomatic patients</p>
+    <div class="g2">
+      <div class="f"><label>Bone Scan</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+      <div class="f"><label>CECT Chest / Abdomen / Pelvis</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+      <div class="f"><label>PET-CT</label>
+        <div class="yn" data-cond="petct0"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="petct0"><div class="ci"><div class="f"><label>Indication</label><input type="text" placeholder="e.g. equivocal bone scan, staging clarification"></div></div></div>
+      </div>
+      <div class="f"><label>Liver Ultrasound</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+    </div>
+  </div>
+
+  <!-- PA EXAMINATION -->
+  <div class="card card-pa">
+    <div class="ctitle">Examination Findings</div>
+    <div class="f"><label>Examination performed this visit?</label>
+      <div class="yn" data-cond="exam0" data-cond-no="exam0-skip">
+        <button type="button" class="yn-y on" onclick="ynt(this)">Performed</button>
+        <button type="button" class="yn-n" onclick="ynt(this)">Not Performed</button>
+      </div>
+    </div>
+    <div class="cond show" id="exam0">
+      <div class="sh">Breast</div>
+      <div class="f"><label>Lump palpable?</label>
+        <div class="yn" data-cond="ex-lump0"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="ex-lump0"><div class="ci">
+          <div class="g3">
+            <div class="f"><label>Side</label><select><option value="">—</option><option>Left</option><option>Right</option><option>Bilateral</option></select></div>
+            <div class="f"><label>Site (clock + FN)</label><input type="text" placeholder="e.g. 10 o'clock, 3 cm FN"></div>
+            <div class="f"><label>Size (cm)</label><input type="number" step="0.1"></div>
+          </div>
+          <div class="g3">
+            <div class="f"><label>Consistency</label><select><option value="">—</option><option>Soft / cystic</option><option>Firm</option><option>Hard</option></select></div>
+            <div class="f"><label>Margins</label><select><option value="">—</option><option>Well-defined</option><option>Ill-defined</option><option>Irregular</option></select></div>
+            <div class="f"><label>Mobility</label><select><option value="">—</option><option>Mobile</option><option>Restricted</option><option>Fixed to skin</option><option>Fixed to chest wall</option></select></div>
+          </div>
+          <div class="g2">
+            <div class="f"><label>Skin involvement?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+            <div class="f"><label>Nipple involvement?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+          </div>
+        </div></div>
+      </div>
+      <div class="sh">Lymph Nodes</div>
+      <div class="g2">
+        <div class="f"><label>Axillary nodes palpable?</label>
+          <div class="yn" data-cond="ax0"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+          <div class="cond" id="ax0"><div class="ci"><div class="f"><label>Characteristics</label>
+            <select><option value="">—</option><option>Soft / mobile (likely reactive)</option><option>Firm, discrete</option><option>Hard / matted</option><option>Fixed</option></select>
+          </div></div></div>
+        </div>
+        <div class="f"><label>Supraclavicular nodes palpable?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+      </div>
+      <div class="f"><label>Additional examination notes</label><textarea></textarea></div>
+    </div>
+    <div class="cond" id="exam0-skip">
+      <div class="exam-skip">
+        <div class="f"><label style="color:#7a5c00">Reason examination not performed</label>
+          <select><option value="">—</option><option>Patient declined</option><option>Patient unwell / unfit</option><option>Telehealth / remote consultation</option><option>Examination deferred to clinician</option><option>Other</option></select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-clin">
+    <div class="ctitle-clin">🩺 Clinician Assessment</div>
+    <div class="g2">
+      <div class="f"><label>Working Diagnosis / Impression</label><textarea placeholder="Clinical impression after reviewing history and examination"></textarea></div>
+      <div class="f"><label>Differential Diagnoses</label><textarea placeholder="Alternative diagnoses considered"></textarea></div>
+    </div>
+    <div class="sh" style="color:#9c2060;border-color:#f0c0d8">Investigations</div>
+    <div class="g2">
+      <div class="f"><label>Investigation plan</label>
+        <select style="border-color:#e0aac0"><option value="">—</option><option>As ordered — no changes</option><option>Modified — see notes</option><option>Additional investigations added</option><option>Cancelled — see notes</option></select>
+      </div>
+      <div class="f"><label>Investigation notes</label><input type="text" placeholder="Detail any changes to investigations ordered"></div>
+    </div>
+    <div class="sh" style="color:#9c2060;border-color:#f0c0d8">Management</div>
+    <div class="f"><label>Management Plan</label><textarea placeholder="Planned management for this encounter"></textarea></div>
+    <div class="g2">
+      <div class="f"><label>Consent discussed?</label>
+        <div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+      </div>
+      <div class="f"><label>MDT referral needed?</label>
+        <div class="yn" data-cond="mdt-c0"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="mdt-c0"><div class="ci-clin"><div class="f"><label>Which MDT</label><input type="text" placeholder="e.g. Breast MDT, Genetics, Plastics"></div></div></div>
+      </div>
+    </div>
+    <div class="f"><label>Follow-Up Plan</label><textarea placeholder="Follow-up interval, next steps, patient instructions"></textarea></div>
+    <hr class="div" style="border-color:#e0aac0">
+    <div class="g2">
+      <div class="f"><label>Clinician Name</label><input type="text"></div>
+      <div class="f"><label>Role</label>
+        <select><option value="">—</option><option>Registrar</option><option>Senior Registrar</option><option>Consultant</option><option>Other</option></select>
+      </div>
+    </div>
+  </div>
+</div><!-- end p0 -->
+
+
+<!-- ══════════════════════════════════════
+     PANEL 1 — BENIGN / HIGH-RISK (F/U)
+══════════════════════════════════════ -->
+<div class="panel" id="p1">
+
+  <div class="card card-pa">
+    <div class="ctitle">Patient Demographics</div>
+    <div class="g3">
+      <div class="f"><label>Full Name</label><input type="text" placeholder="First, Last"></div>
+      <div class="f"><label>Date of Birth</label><input type="date" id="dob1" onchange="calcAge('dob1','age1')"></div>
+      <div class="f"><label>Patient UHID</label><input type="text"></div>
+    </div>
+    <div class="g3" style="margin-top:12px">
+      <div class="f"><label>Age (years)</label><input type="number" id="age1" readonly style="background:#f5f7f9;color:var(--mut)" title="Auto-calculated from DOB"></div>
+      <div class="f"><label>Date of Visit</label><input type="date"></div>
+      <div class="f"><label>Clinician Name</label><input type="text"></div>
+    </div>
+  </div>
+
+  <div class="card card-pa">
+    <div class="ctitle">Known Diagnosis</div>
+    <div class="g2">
+      <div class="f"><label>Diagnosis</label>
+        <select><option value="">—</option>
+          <optgroup label="Benign — Non-proliferative">
+            <option>Simple cyst</option><option>Fibroadenoma</option><option>Fibrocystic change</option><option>Mastalgia only</option>
+          </optgroup>
+          <optgroup label="Benign — Proliferative (no atypia)">
+            <option>Moderate / florid hyperplasia</option><option>Sclerosing adenosis</option><option>Papilloma (without atypia)</option><option>Radial scar (without atypia)</option><option>Phyllodes — Benign</option>
+          </optgroup>
+          <optgroup label="High-Risk Lesions (B3)">
+            <option>Atypical Ductal Hyperplasia (ADH)</option><option>Atypical Lobular Hyperplasia (ALH)</option><option>LCIS — Classic</option><option>LCIS — Pleomorphic</option><option>Flat Epithelial Atypia (FEA)</option><option>Papilloma with atypia</option><option>Radial scar with atypia</option><option>Phyllodes — Borderline</option>
+          </optgroup>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="f"><label>Date of diagnosis</label><input type="date"></div>
+    </div>
+    <div class="g2">
+      <div class="f"><label>How diagnosed</label>
+        <select><option value="">—</option><option>Clinical only</option><option>Imaging only</option><option>Core needle biopsy</option><option>VAB</option><option>Excision biopsy</option></select>
+      </div>
+      <div class="f"><label>Side / location</label><input type="text" placeholder="e.g. Right breast UOQ"></div>
+    </div>
+  </div>
+
+  <div class="card card-pa">
+    <div class="ctitle">High-Risk Lesion Assessment</div>
+    <p class="hint" style="margin-bottom:12px">Per ASBrS High-Risk Lesions 2024 &amp; ASBrS/SBI Fibroepithelial Lesion Guidelines (JAMA Surgery 2025)</p>
+    <div class="g2">
+      <div class="f"><label>Upgrade risk discussed with patient?</label>
+        <div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="hint">ADH upgrade ~23%; ALH/LCIS/FEA lower — individualised</div>
+      </div>
+      <div class="f"><label>Surgical excision recommended / performed?</label>
+        <div class="yn" data-cond="exc1"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="exc1"><div class="ci"><div class="f"><label>Status</label>
+          <select><option value="">—</option><option>Recommended — pending</option><option>Performed — benign on final</option><option>Performed — upgraded to DCIS/invasive</option></select>
+        </div></div></div>
+      </div>
+    </div>
+    <div class="g2">
+      <div class="f"><label>Chemoprevention discussed?</label>
+        <div class="yn" data-cond="cprev1"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="cprev1"><div class="ci">
+          <div class="g2">
+            <div class="f"><label>Offered?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+            <div class="f"><label>Accepted?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+          </div>
+          <div class="f"><label>Agent prescribed</label>
+            <select><option value="">—</option><option>Tamoxifen 20 mg OD</option><option>Tamoxifen 5 mg OD (low-dose)</option><option>Raloxifene 60 mg OD</option><option>Exemestane 25 mg OD</option><option>Not yet started</option></select>
+          </div>
+        </div></div>
+      </div>
+      <div class="f"><label>Referred for genetic counselling?</label>
+        <div class="yn" data-cond="gen1"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="gen1"><div class="ci"><div class="f"><label>Outcome</label><input type="text"></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-pa">
+    <div class="ctitle">Surveillance Status</div>
+    <p class="hint" style="margin-bottom:12px">ACR: diagnostic imaging at 6, 12, 24 months for B3 lesions on surveillance</p>
+    <div class="g3">
+      <div class="f"><label>Last imaging date</label><input type="date"></div>
+      <div class="f"><label>Imaging type</label>
+        <select><option value="">—</option><option>Mammogram</option><option>Ultrasound</option><option>Mammogram + Ultrasound</option><option>MRI</option></select>
+      </div>
+      <div class="f"><label>BI-RADS on last imaging</label>
+        <select><option value="">—</option><option>1 — Negative</option><option>2 — Benign</option><option>3 — Probably benign</option><option>4 — Suspicious</option><option>5 — Highly suggestive</option></select>
+      </div>
+    </div>
+    <div class="g2">
+      <div class="f"><label>Next imaging due</label><input type="date"></div>
+      <div class="f"><label>Compliance with surveillance</label>
+        <select><option value="">—</option><option>Good — all appointments attended</option><option>Missed ≥1 appointment</option><option>First surveillance visit</option><option>Returned to age-appropriate screening</option></select>
+      </div>
+    </div>
+    <div class="f"><label>Breast density (most recent mammogram)</label>
+      <select><option value="">—</option><option>A — Almost entirely fatty</option><option>B — Scattered fibroglandular</option><option>C — Heterogeneously dense</option><option>D — Extremely dense</option><option>Not reported</option></select>
+      <div class="hint">ACR BI-RADS v2025 density classification</div>
+    </div>
+  </div>
+
+  <div class="card card-pa">
+    <div class="ctitle">New Symptoms Since Last Visit</div>
+    <div class="g2">
+      <div class="f"><label>New breast lump?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+      <div class="f"><label>Change in existing lump / lesion?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+      <div class="f"><label>New or changed breast pain?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+      <div class="f"><label>Nipple discharge (new)?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+      <div class="f"><label>Skin or nipple changes?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+      <div class="f"><label>Axillary swelling?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+    </div>
+    <div class="f"><label>Details of new symptoms</label><textarea placeholder="Describe any new or changed symptoms"></textarea></div>
+  </div>
+
+  <div class="card card-pa">
+    <div class="ctitle">Examination Findings</div>
+    <div class="f"><label>Examination performed this visit?</label>
+      <div class="yn" data-cond="exam1" data-cond-no="exam1-skip">
+        <button type="button" class="yn-y on" onclick="ynt(this)">Performed</button>
+        <button type="button" class="yn-n" onclick="ynt(this)">Not Performed</button>
+      </div>
+    </div>
+    <div class="cond show" id="exam1">
+      <div class="g2" style="margin-top:8px">
+        <div class="f"><label>Lump palpable?</label>
+          <div class="yn" data-cond="ex1-lump"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+          <div class="cond" id="ex1-lump"><div class="ci">
+            <div class="g3">
+              <div class="f"><label>Side</label><select><option value="">—</option><option>Left</option><option>Right</option><option>Bilateral</option></select></div>
+              <div class="f"><label>Site</label><input type="text" placeholder="Clock, FN distance"></div>
+              <div class="f"><label>Size (cm)</label><input type="number" step="0.1"></div>
+            </div>
+            <div class="f"><label>Change from last visit</label>
+              <select><option value="">—</option><option>Larger</option><option>Same size</option><option>Smaller</option><option>Not previously palpable</option></select>
+            </div>
+          </div></div>
+        </div>
+        <div class="f"><label>Axillary nodes palpable?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+      </div>
+      <div class="f"><label>Additional notes</label><textarea></textarea></div>
+    </div>
+    <div class="cond" id="exam1-skip">
+      <div class="exam-skip"><div class="f"><label style="color:#7a5c00">Reason not performed</label>
+        <select><option value="">—</option><option>Patient declined</option><option>Patient unwell</option><option>Telehealth consultation</option><option>Deferred to clinician</option><option>Other</option></select>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="card card-clin">
+    <div class="ctitle-clin">🩺 Clinician Assessment</div>
+    <div class="g2">
+      <div class="f"><label>Working Diagnosis / Impression</label><textarea placeholder="Clinical impression after reviewing history and examination"></textarea></div>
+      <div class="f"><label>Differential Diagnoses</label><textarea placeholder="Alternative diagnoses considered"></textarea></div>
+    </div>
+    <div class="sh" style="color:#9c2060;border-color:#f0c0d8">Investigations</div>
+    <div class="g2">
+      <div class="f"><label>Investigation plan</label>
+        <select><option value="">—</option><option>As ordered — no changes</option><option>Modified — see notes</option><option>Additional investigations added</option><option>Cancelled — see notes</option></select>
+      </div>
+      <div class="f"><label>Investigation notes</label><input type="text" placeholder="Detail any changes"></div>
+    </div>
+    <div class="sh" style="color:#9c2060;border-color:#f0c0d8">Management</div>
+    <div class="f"><label>Management Plan</label><textarea></textarea></div>
+    <div class="g2">
+      <div class="f"><label>Consent discussed?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+      <div class="f"><label>MDT referral needed?</label>
+        <div class="yn" data-cond="mdt-c1"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="mdt-c1"><div class="ci-clin"><div class="f"><label>Which MDT</label><input type="text"></div></div></div>
+      </div>
+    </div>
+    <div class="f"><label>Follow-Up Plan</label><textarea></textarea></div>
+    <hr class="div" style="border-color:#e0aac0">
+    <div class="g2">
+      <div class="f"><label>Clinician Name</label><input type="text"></div>
+      <div class="f"><label>Role</label><select><option value="">—</option><option>Registrar</option><option>Senior Registrar</option><option>Consultant</option><option>Other</option></select></div>
+    </div>
+  </div>
+</div><!-- end p1 -->
+
+
+<!-- ══════════════════════════════════════
+     PANEL 2 — ON TREATMENT
+══════════════════════════════════════ -->
+<div class="panel" id="p2">
+
+  <div class="card card-pa">
+    <div class="ctitle">Patient Demographics</div>
+    <div class="g3">
+      <div class="f"><label>Full Name</label><input type="text" placeholder="First, Last"></div>
+      <div class="f"><label>Date of Birth</label><input type="date" id="dob2" onchange="calcAge('dob2','age2')"></div>
+      <div class="f"><label>Patient UHID</label><input type="text"></div>
+    </div>
+    <div class="g3" style="margin-top:12px">
+      <div class="f"><label>Age (years)</label><input type="number" id="age2" readonly style="background:#f5f7f9;color:var(--mut)" title="Auto-calculated from DOB"></div>
+      <div class="f"><label>Date of Visit</label><input type="date"></div>
+      <div class="f"><label>Clinician Name</label><input type="text"></div>
+    </div>
+  </div>
+
+  <div class="card card-pa">
+    <div class="ctitle">Diagnosis &amp; Stage</div>
+    <div class="g2">
+      <div class="f"><label>Primary diagnosis</label><input type="text" placeholder="e.g. IDC Left Breast T2N1M0 Stage IIB"></div>
+      <div class="f"><label>Date of diagnosis</label><input type="date"></div>
+    </div>
+    <div class="g2">
+      <div class="f"><label>Clinical / pathological stage</label>
+        <select><option value="">—</option><option>Stage I</option><option>Stage IIA</option><option>Stage IIB</option><option>Stage IIIA</option><option>Stage IIIB</option><option>Stage IIIC</option><option>Stage IV</option></select>
+      </div>
+      <div class="f"><label>Molecular subtype</label>
+        <select><option value="">—</option><option>Luminal A</option><option>Luminal B (HER2-)</option><option>Luminal B (HER2+)</option><option>HER2-enriched</option><option>Triple-negative (TNBC)</option></select>
+      </div>
+    </div>
+    <div class="sh">Receptor Status</div>
+    <div class="rrow">
+      <div class="ritem f"><label>ER</label><select><option value="">—</option><option>Positive</option><option>Negative</option></select></div>
+      <div class="ritem f"><label>PR</label><select><option value="">—</option><option>Positive</option><option>Negative</option></select></div>
+      <div class="ritem f"><label>HER2</label><select><option value="">—</option><option>Positive (3+)</option><option>Equivocal (2+)</option><option>Negative</option></select></div>
+      <div class="ritem f"><label>Ki67 (%)</label><input type="number" min="0" max="100"></div>
+    </div>
+  </div>
+
+  <div class="card card-pa">
+    <div class="ctitle">Current Treatment</div>
+    <div class="g2">
+      <div class="f"><label>Treatment intent</label>
+        <select><option value="">—</option><option>Neoadjuvant (pre-operative)</option><option>Adjuvant (post-operative)</option><option>Palliative / metastatic</option></select>
+      </div>
+      <div class="f"><label>Treatment type</label>
+        <select><option value="">—</option><option>Chemotherapy</option><option>HER2-targeted therapy</option><option>Endocrine therapy</option><option>CDK4/6 inhibitor</option><option>PARP inhibitor</option><option>Immunotherapy</option><option>Radiation therapy</option><option>Combination</option></select>
+      </div>
+    </div>
+    <div class="g2">
+      <div class="f"><label>Regimen / drug</label><input type="text" placeholder="e.g. AC × 4 → Paclitaxel + Trastuzumab"></div>
+      <div class="f"><label>Cycle / session number</label><input type="number" min="1"></div>
+    </div>
+    <div class="g2">
+      <div class="f"><label>Start date</label><input type="date"></div>
+      <div class="f"><label>Expected completion</label><input type="date"></div>
+    </div>
+    <div class="f"><label>Clinical response (neoadjuvant)</label>
+      <select><option value="">—</option><option>Complete clinical response</option><option>Partial response</option><option>Stable disease</option><option>Progressive disease</option><option>Not yet assessable</option><option>Not applicable</option></select>
+    </div>
+  </div>
+
+  <div class="card card-pa">
+    <div class="ctitle">Treatment Tolerability</div>
+    <div class="f"><label>Overall compliance</label>
+      <select><option value="">—</option><option>Good — on schedule</option><option>Dose delay (patient factors)</option><option>Dose delay (toxicity)</option><option>Dose reduction required</option><option>Treatment interrupted</option></select>
+    </div>
+    <div class="sh">Side Effects</div>
+    <div class="g2">
+      <div class="f"><label>Nausea / Vomiting</label>
+        <div class="yn" data-cond="se-nv2"><button type="button" class="yn-y" onclick="ynt(this)">Present</button><button type="button" class="yn-n" onclick="ynt(this)">Absent</button></div>
+        <div class="cond" id="se-nv2"><div class="ci"><div class="f"><label>CTCAE Grade</label><select><option value="">—</option><option>Grade 1 — Mild</option><option>Grade 2 — Moderate</option><option>Grade 3 — Severe</option><option>Grade 4 — Life-threatening</option></select></div></div></div>
+      </div>
+      <div class="f"><label>Fatigue</label>
+        <div class="yn" data-cond="se-fat2"><button type="button" class="yn-y" onclick="ynt(this)">Present</button><button type="button" class="yn-n" onclick="ynt(this)">Absent</button></div>
+        <div class="cond" id="se-fat2"><div class="ci"><div class="f"><label>CTCAE Grade</label><select><option value="">—</option><option>Grade 1</option><option>Grade 2</option><option>Grade 3</option></select></div></div></div>
+      </div>
+      <div class="f"><label>Peripheral Neuropathy</label>
+        <div class="yn" data-cond="se-np2"><button type="button" class="yn-y" onclick="ynt(this)">Present</button><button type="button" class="yn-n" onclick="ynt(this)">Absent</button></div>
+        <div class="cond" id="se-np2"><div class="ci"><div class="f"><label>CTCAE Grade</label><select><option value="">—</option><option>Grade 1</option><option>Grade 2</option><option>Grade 3</option><option>Grade 4</option></select></div></div></div>
+      </div>
+      <div class="f"><label>Mucositis</label>
+        <div class="yn" data-cond="se-mu2"><button type="button" class="yn-y" onclick="ynt(this)">Present</button><button type="button" class="yn-n" onclick="ynt(this)">Absent</button></div>
+        <div class="cond" id="se-mu2"><div class="ci"><div class="f"><label>CTCAE Grade</label><select><option value="">—</option><option>Grade 1</option><option>Grade 2</option><option>Grade 3</option><option>Grade 4</option></select></div></div></div>
+      </div>
+      <div class="f"><label>Alopecia</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Present</button><button type="button" class="yn-n" onclick="ynt(this)">Absent</button></div></div>
+      <div class="f"><label>Cardiac symptoms</label>
+        <div class="yn" data-cond="se-card2"><button type="button" class="yn-y" onclick="ynt(this)">Present</button><button type="button" class="yn-n" onclick="ynt(this)">Absent</button></div>
+        <div class="cond" id="se-card2"><div class="ci"><div class="f"><label>Describe</label><input type="text"></div></div></div>
+      </div>
+      <div class="f"><label>Diarrhoea</label>
+        <div class="yn" data-cond="se-di2"><button type="button" class="yn-y" onclick="ynt(this)">Present</button><button type="button" class="yn-n" onclick="ynt(this)">Absent</button></div>
+        <div class="cond" id="se-di2"><div class="ci"><div class="f"><label>CTCAE Grade</label><select><option value="">—</option><option>Grade 1</option><option>Grade 2</option><option>Grade 3</option><option>Grade 4</option></select></div></div></div>
+      </div>
+      <div class="f"><label>Skin / nail toxicity</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Present</button><button type="button" class="yn-n" onclick="ynt(this)">Absent</button></div></div>
+    </div>
+    <div class="g2">
+      <div class="f"><label>Weight change since last visit</label>
+        <select><option value="">—</option><option>Stable (±2 kg)</option><option>Gained &gt;2 kg</option><option>Lost &gt;2 kg</option><option>Significant loss &gt;5 kg</option></select>
+      </div>
+      <div class="f"><label>Other side effects</label><input type="text"></div>
+    </div>
+  </div>
+
+  <div class="card card-pa">
+    <div class="ctitle">Investigations Required This Visit</div>
+    <div class="g2">
+      <div class="f"><label>Interim breast imaging?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+      <div class="f"><label>Echocardiogram?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+      <div class="f"><label>FBC / biochemistry?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+      <div class="f"><label>Other</label><input type="text"></div>
+    </div>
+  </div>
+
+  <div class="card card-pa">
+    <div class="ctitle">Examination Findings</div>
+    <div class="f"><label>Examination performed this visit?</label>
+      <div class="yn" data-cond="exam2" data-cond-no="exam2-skip">
+        <button type="button" class="yn-y on" onclick="ynt(this)">Performed</button>
+        <button type="button" class="yn-n" onclick="ynt(this)">Not Performed</button>
+      </div>
+    </div>
+    <div class="cond show" id="exam2">
+      <div class="f" style="margin-top:8px"><label>Tumour response on examination</label>
+        <select><option value="">—</option><option>Complete clinical response — no palpable tumour</option><option>Partial response — tumour smaller</option><option>Stable — no change</option><option>Progression — larger / new lesion</option><option>Not applicable</option></select>
+      </div>
+      <div class="g2">
+        <div class="f"><label>Residual lump size (cm)</label><input type="number" step="0.1"></div>
+        <div class="f"><label>Axillary nodes palpable?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+      </div>
+      <div class="f"><label>Line / port site — any issues?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+      <div class="f"><label>Additional notes</label><textarea></textarea></div>
+    </div>
+    <div class="cond" id="exam2-skip">
+      <div class="exam-skip"><div class="f"><label style="color:#7a5c00">Reason not performed</label>
+        <select><option value="">—</option><option>Patient declined</option><option>Patient unwell</option><option>Telehealth consultation</option><option>Deferred to clinician</option><option>Other</option></select>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="card card-clin">
+    <div class="ctitle-clin">🩺 Clinician Assessment</div>
+    <div class="g2">
+      <div class="f"><label>Clinical Impression</label><textarea placeholder="Response assessment and current status"></textarea></div>
+      <div class="f"><label>Concerns / Differentials</label><textarea></textarea></div>
+    </div>
+    <div class="sh" style="color:#9c2060;border-color:#f0c0d8">Plan</div>
+    <div class="g2">
+      <div class="f"><label>Treatment plan</label>
+        <select><option value="">—</option><option>Continue current regimen</option><option>Dose modification</option><option>Regimen change — see notes</option><option>Treatment hold</option><option>Treatment completed</option></select>
+      </div>
+      <div class="f"><label>Plan notes</label><input type="text" placeholder="Details of any modifications"></div>
+    </div>
+    <div class="f"><label>Management Plan</label><textarea></textarea></div>
+    <div class="g2">
+      <div class="f"><label>Consent discussed?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+      <div class="f"><label>MDT referral needed?</label>
+        <div class="yn" data-cond="mdt-c2"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="mdt-c2"><div class="ci-clin"><div class="f"><label>Which MDT</label><input type="text"></div></div></div>
+      </div>
+    </div>
+    <div class="f"><label>Follow-Up Plan</label><textarea></textarea></div>
+    <hr class="div" style="border-color:#e0aac0">
+    <div class="g2">
+      <div class="f"><label>Clinician Name</label><input type="text"></div>
+      <div class="f"><label>Role</label><select><option value="">—</option><option>Registrar</option><option>Senior Registrar</option><option>Consultant</option><option>Other</option></select></div>
+    </div>
+  </div>
+</div><!-- end p2 -->
+
+
+<!-- ══════════════════════════════════════
+     PANEL 3 — FOLLOW-UP
+══════════════════════════════════════ -->
+<div class="panel" id="p3">
+
+  <div class="card card-pa">
+    <div class="ctitle">Patient Demographics</div>
+    <div class="g3">
+      <div class="f"><label>Full Name</label><input type="text" placeholder="First, Last"></div>
+      <div class="f"><label>Date of Birth</label><input type="date" id="dob3" onchange="calcAge('dob3','age3')"></div>
+      <div class="f"><label>Patient UHID</label><input type="text"></div>
+    </div>
+    <div class="g3" style="margin-top:12px">
+      <div class="f"><label>Age (years)</label><input type="number" id="age3" readonly style="background:#f5f7f9;color:var(--mut)" title="Auto-calculated from DOB"></div>
+      <div class="f"><label>Date of Visit</label><input type="date"></div>
+      <div class="f"><label>Clinician Name</label><input type="text"></div>
+    </div>
+  </div>
+
+  <div class="card card-pa">
+    <div class="ctitle">Treatment Summary</div>
+    <p class="hint" style="margin-bottom:12px">Per ASCO Follow-Up Guideline (JCO) &amp; ASCO Survivorship Educational Book 2024</p>
+    <div class="g2">
+      <div class="f"><label>Primary diagnosis</label><input type="text" placeholder="e.g. IDC R Breast T1N0M0 Stage I, ER+/PR+/HER2-"></div>
+      <div class="f"><label>Year of diagnosis</label><input type="number" placeholder="YYYY"></div>
+    </div>
+    <div class="sh">Surgery</div>
+    <div class="g2">
+      <div class="f"><label>Surgery type</label>
+        <select><option value="">—</option><option>BCS / Lumpectomy</option><option>Simple mastectomy</option><option>Modified radical mastectomy</option><option>Bilateral mastectomy</option><option>Mastectomy + immediate reconstruction</option><option>Mastectomy + delayed reconstruction</option><option>No surgery</option></select>
+      </div>
+      <div class="f"><label>Date of surgery</label><input type="date"></div>
+    </div>
+    <div class="g2">
+      <div class="f"><label>Axillary procedure</label>
+        <select><option value="">—</option><option>None</option><option>SLNB</option><option>ALND</option><option>SLNB → ALND</option></select>
+      </div>
+      <div class="f"><label>Nodal status (positive / total)</label><input type="text" placeholder="e.g. 2 / 14"></div>
+    </div>
+    <div class="sh">Radiation</div>
+    <div class="f"><label>Radiation received?</label>
+      <div class="yn" data-cond="fu-rt3"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+      <div class="cond" id="fu-rt3"><div class="ci">
+        <div class="g3">
+          <div class="f"><label>Field</label>
+            <select><option value="">—</option><option>Breast (post-BCS)</option><option>Chest wall (post-mastectomy)</option><option>Regional nodal</option><option>Breast + nodal</option><option>Chest wall + nodal</option></select>
+          </div>
+          <div class="f"><label>Completion date</label><input type="date"></div>
+          <div class="f"><label>Boost given?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+        </div>
+      </div></div>
+    </div>
+    <div class="sh">Systemic Therapy</div>
+    <div class="g2">
+      <div class="f"><label>Chemotherapy?</label>
+        <div class="yn" data-cond="fu-ct3"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="fu-ct3"><div class="ci">
+          <div class="g2">
+            <div class="f"><label>Regimen</label><input type="text" placeholder="e.g. AC-T, FEC-D"></div>
+            <div class="f"><label>Completion date</label><input type="date"></div>
+          </div>
+        </div></div>
+      </div>
+      <div class="f"><label>HER2-directed therapy?</label>
+        <div class="yn" data-cond="fu-h23"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="fu-h23"><div class="ci">
+          <div class="g2">
+            <div class="f"><label>Agent</label><input type="text" placeholder="e.g. Trastuzumab, T-DM1"></div>
+            <div class="f"><label>Duration / completion</label><input type="text"></div>
+          </div>
+        </div></div>
+      </div>
+    </div>
+    <div class="g2">
+      <div class="f"><label>Endocrine therapy?</label>
+        <div class="yn" data-cond="fu-et3"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="fu-et3"><div class="ci">
+          <div class="g2">
+            <div class="f"><label>Agent</label>
+              <select><option value="">—</option><option>Tamoxifen</option><option>Aromatase inhibitor (AI)</option><option>OFS + Tamoxifen</option><option>OFS + AI</option><option>Extended AI</option></select>
+            </div>
+            <div class="f"><label>Duration planned</label>
+              <select><option value="">—</option><option>5 years</option><option>7 years</option><option>10 years</option><option>Extended / ongoing</option></select>
+            </div>
+          </div>
+          <div class="f"><label>Currently adherent?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+        </div></div>
+      </div>
+      <div class="f"><label>CDK4/6 inhibitor?</label>
+        <div class="yn" data-cond="fu-cdk3"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="fu-cdk3"><div class="ci"><div class="f"><label>Agent</label><input type="text" placeholder="e.g. Ribociclib, Abemaciclib"></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-pa">
+    <div class="ctitle">Current Follow-Up Status</div>
+    <div class="g3">
+      <div class="f"><label>Year of follow-up</label>
+        <select><option value="">—</option><option>Year 1</option><option>Year 2</option><option>Year 3</option><option>Year 4</option><option>Year 5</option><option>Year 6–10</option><option>&gt;10 years</option></select>
+        <div class="hint">ASCO: 3–6 monthly yr 1–3; 6–12 monthly yr 4–5; annual thereafter</div>
+      </div>
+      <div class="f"><label>Disease-free interval (months)</label><input type="number" min="0"></div>
+      <div class="f"><label>Mode of this visit</label>
+        <select><option value="">—</option><option>Routine scheduled</option><option>Patient-detected symptom</option><option>Imaging finding</option></select>
+      </div>
+    </div>
+    <div class="f"><label>Current status</label>
+      <select><option value="">—</option><option>Disease-free (NED)</option><option>Suspected recurrence — under investigation</option><option>Confirmed locoregional recurrence</option><option>Confirmed new primary</option><option>Confirmed distant metastasis</option></select>
+    </div>
+  </div>
+
+  <div class="card card-pa">
+    <div class="ctitle">Recurrence Symptom Screen</div>
+    <p class="hint" style="margin-bottom:12px">Per ASCO follow-up guidelines &amp; PMC 2025 recurrence detection study</p>
+    <div class="g2">
+      <div class="f"><label>New breast / chest wall lump or skin change?</label>
+        <div class="yn" data-cond="rec-l3"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="rec-l3"><div class="ci"><div class="f"><label>Describe</label><input type="text"></div></div></div>
+      </div>
+      <div class="f"><label>Axillary / supraclavicular swelling?</label>
+        <div class="yn" data-cond="rec-n3"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="rec-n3"><div class="ci"><div class="f"><label>Site and duration</label><input type="text"></div></div></div>
+      </div>
+      <div class="f"><label>Bone pain? <span style="font-size:11px;color:var(--mut)">(commonest distant met site)</span></label>
+        <div class="yn" data-cond="rec-b3"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="rec-b3"><div class="ci">
+          <div class="g2">
+            <div class="f"><label>Site</label><input type="text" placeholder="e.g. lower back, right hip"></div>
+            <div class="f"><label>NRS Score</label>
+              <div class="nrs"><button type="button" class="nb" onclick="nrst(this)">0</button><button type="button" class="nb" onclick="nrst(this)">1</button><button type="button" class="nb" onclick="nrst(this)">2</button><button type="button" class="nb" onclick="nrst(this)">3</button><button type="button" class="nb" onclick="nrst(this)">4</button><button type="button" class="nb" onclick="nrst(this)">5</button><button type="button" class="nb" onclick="nrst(this)">6</button><button type="button" class="nb" onclick="nrst(this)">7</button><button type="button" class="nb" onclick="nrst(this)">8</button><button type="button" class="nb" onclick="nrst(this)">9</button><button type="button" class="nb" onclick="nrst(this)">10</button></div>
+            </div>
+          </div>
+        </div></div>
+      </div>
+      <div class="f"><label>Dyspnoea / cough (new)?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+      <div class="f"><label>RUQ pain / abdominal distension?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+      <div class="f"><label>Headache / neurological symptoms?</label>
+        <div class="yn" data-cond="rec-c3"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="rec-c3"><div class="ci"><div class="f"><label>Describe</label><input type="text"></div></div></div>
+      </div>
+      <div class="f"><label>Unintentional weight loss?</label>
+        <div class="yn" data-cond="rec-w3"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="rec-w3"><div class="ci"><div class="f"><label>Amount and timeframe</label><input type="text"></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-pa">
+    <div class="ctitle">Treatment Sequelae &amp; Survivorship</div>
+    <p class="hint" style="margin-bottom:12px">Per ASCO Survivorship Educational Book 2024 &amp; BJC Survivorship Systematic Review 2025</p>
+    <div class="g2">
+      <div class="f"><label>Lymphoedema?</label>
+        <div class="yn" data-cond="lym3"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="lym3"><div class="ci">
+          <div class="g2">
+            <div class="f"><label>Severity</label><select><option value="">—</option><option>Mild</option><option>Moderate</option><option>Severe</option></select></div>
+            <div class="f"><label>Compression garment prescribed?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+          </div>
+        </div></div>
+      </div>
+      <div class="f"><label>Shoulder dysfunction / ROM restriction?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+      <div class="f"><label>Menopausal symptoms?</label>
+        <div class="yn" data-cond="msx3"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="msx3"><div class="ci">
+          <div class="f"><label>Severity</label><select><option value="">—</option><option>Mild</option><option>Moderate</option><option>Severe</option></select></div>
+          <div class="f"><label>Main symptoms</label>
+            <div class="pills"><button type="button" class="pill" onclick="pill(this,null)">Hot flushes</button><button type="button" class="pill" onclick="pill(this,null)">Sleep disturbance</button><button type="button" class="pill" onclick="pill(this,null)">Vaginal dryness</button><button type="button" class="pill" onclick="pill(this,null)">Mood changes</button><button type="button" class="pill" onclick="pill(this,null)">Joint pain</button></div>
+          </div>
+        </div></div>
+      </div>
+      <div class="f"><label>DEXA scan done?</label>
+        <div class="yn" data-cond="dexa3"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="dexa3"><div class="ci">
+          <div class="g2">
+            <div class="f"><label>Result</label><select><option value="">—</option><option>Normal (T &gt; −1)</option><option>Osteopenia (T −1 to −2.5)</option><option>Osteoporosis (T ≤ −2.5)</option></select></div>
+            <div class="f"><label>Bisphosphonate / denosumab?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+          </div>
+        </div></div>
+      </div>
+      <div class="f"><label>Cardiac symptoms?</label>
+        <div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="hint">Relevant if anthracycline / trastuzumab received</div>
+      </div>
+      <div class="f"><label>Peripheral neuropathy (chemo-induced)?</label>
+        <div class="yn" data-cond="cipn3"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="cipn3"><div class="ci"><div class="f"><label>Grade</label><select><option value="">—</option><option>Grade 1 — Mild</option><option>Grade 2 — Moderate</option><option>Grade 3 — Severe</option></select></div></div></div>
+      </div>
+      <div class="f"><label>Cognitive symptoms ("chemo brain")?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+    </div>
+    <div class="sh">Psychological Wellbeing</div>
+    <div class="g2">
+      <div class="f"><label>Distress Thermometer (0–10)</label>
+        <div class="nrs"><button type="button" class="nb" onclick="nrst(this)">0</button><button type="button" class="nb" onclick="nrst(this)">1</button><button type="button" class="nb" onclick="nrst(this)">2</button><button type="button" class="nb" onclick="nrst(this)">3</button><button type="button" class="nb" onclick="nrst(this)">4</button><button type="button" class="nb" onclick="nrst(this)">5</button><button type="button" class="nb" onclick="nrst(this)">6</button><button type="button" class="nb" onclick="nrst(this)">7</button><button type="button" class="nb" onclick="nrst(this)">8</button><button type="button" class="nb" onclick="nrst(this)">9</button><button type="button" class="nb" onclick="nrst(this)">10</button></div>
+        <div class="hint">Score ≥4 warrants psychosocial referral</div>
+      </div>
+      <div class="f"><label>Psychosocial support needed?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+    </div>
+  </div>
+
+  <div class="card card-pa">
+    <div class="ctitle">Investigations This Visit</div>
+    <p class="hint" style="margin-bottom:12px">ASCO: routine blood tests / tumour markers NOT recommended in asymptomatic patients</p>
+    <div class="g2">
+      <div class="f"><label>Annual mammogram due?</label>
+        <div class="yn" data-cond="fu-mx3"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="fu-mx3"><div class="ci"><div class="f"><label>Ordered?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div></div></div>
+      </div>
+      <div class="f"><label>Breast MRI?</label>
+        <div class="yn" data-cond="fu-mri3"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="fu-mri3"><div class="ci"><div class="f"><label>Indication</label>
+          <select><option value="">—</option><option>High-risk surveillance (BRCA+)</option><option>Dense breasts / inconclusive Mx</option><option>Reconstruction assessment</option><option>Suspected recurrence</option><option>Contralateral surveillance</option></select>
+        </div></div></div>
+      </div>
+      <div class="f"><label>Bone scan / skeletal survey?</label>
+        <div class="yn" data-cond="fu-bs3"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="fu-bs3"><div class="ci"><div class="f"><label>Indication</label><input type="text"></div></div></div>
+      </div>
+      <div class="f"><label>Blood tests?</label>
+        <div class="yn" data-cond="fu-bl3"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="fu-bl3"><div class="ci"><div class="f"><label>Specify (clinical indication only)</label><input type="text"></div></div></div>
+      </div>
+      <div class="f"><label>CECT Chest / Abdomen / Pelvis</label>
+        <div class="yn" data-cond="fu-cect3"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="fu-cect3"><div class="ci"><div class="f"><label>Indication</label><input type="text" placeholder="e.g. suspected visceral metastasis, LR recurrence staging"></div></div></div>
+      </div>
+      <div class="f"><label>PET-CT</label>
+        <div class="yn" data-cond="fu-pet3"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="fu-pet3"><div class="ci"><div class="f"><label>Indication</label><input type="text" placeholder="e.g. equivocal conventional imaging, suspected recurrence"></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card card-pa">
+    <div class="ctitle">Examination Findings</div>
+    <div class="f"><label>Examination performed this visit?</label>
+      <div class="yn" data-cond="exam3" data-cond-no="exam3-skip">
+        <button type="button" class="yn-y on" onclick="ynt(this)">Performed</button>
+        <button type="button" class="yn-n" onclick="ynt(this)">Not Performed</button>
+      </div>
+    </div>
+    <div class="cond show" id="exam3">
+      <div class="g2" style="margin-top:8px">
+        <div class="f"><label>Scar — well-healed?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+        <div class="f"><label>Skin / chest wall changes?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+        <div class="f"><label>New breast lump palpable?</label>
+          <div class="yn" data-cond="fu-lump3"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+          <div class="cond" id="fu-lump3"><div class="ci">
+            <div class="g3">
+              <div class="f"><label>Side</label><select><option value="">—</option><option>Ipsilateral</option><option>Contralateral</option><option>Bilateral</option></select></div>
+              <div class="f"><label>Site</label><input type="text" placeholder="Clock, FN distance"></div>
+              <div class="f"><label>Size (cm)</label><input type="number" step="0.1"></div>
+            </div>
+          </div></div>
+        </div>
+        <div class="f"><label>Palpable nodes?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+        <div class="f"><label>Arm oedema clinically evident?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+      </div>
+      <div class="f"><label>Additional notes</label><textarea></textarea></div>
+    </div>
+    <div class="cond" id="exam3-skip">
+      <div class="exam-skip"><div class="f"><label style="color:#7a5c00">Reason not performed</label>
+        <select><option value="">—</option><option>Patient declined</option><option>Patient unwell</option><option>Telehealth consultation</option><option>Deferred to clinician</option><option>Other</option></select>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="card card-clin">
+    <div class="ctitle-clin">🩺 Clinician Assessment</div>
+    <div class="g2">
+      <div class="f"><label>Clinical Impression</label><textarea placeholder="Overall status, any new concerns"></textarea></div>
+      <div class="f"><label>Differentials / Concerns</label><textarea placeholder="If recurrence suspected — working differential"></textarea></div>
+    </div>
+    <div class="sh" style="color:#9c2060;border-color:#f0c0d8">Investigations</div>
+    <div class="g2">
+      <div class="f"><label>Investigation plan</label>
+        <select><option value="">—</option><option>As ordered — no changes</option><option>Modified — see notes</option><option>Additional investigations added</option><option>Cancelled — see notes</option></select>
+      </div>
+      <div class="f"><label>Investigation notes</label><input type="text"></div>
+    </div>
+    <div class="sh" style="color:#9c2060;border-color:#f0c0d8">Management</div>
+    <div class="f"><label>Management Plan</label><textarea></textarea></div>
+    <div class="g2">
+      <div class="f"><label>Consent discussed?</label><div class="yn"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div></div>
+      <div class="f"><label>MDT referral needed?</label>
+        <div class="yn" data-cond="mdt-c3"><button type="button" class="yn-y" onclick="ynt(this)">Yes</button><button type="button" class="yn-n" onclick="ynt(this)">No</button></div>
+        <div class="cond" id="mdt-c3"><div class="ci-clin"><div class="f"><label>Which MDT</label><input type="text"></div></div></div>
+      </div>
+    </div>
+    <div class="f"><label>Follow-Up Plan</label><textarea></textarea></div>
+    <hr class="div" style="border-color:#e0aac0">
+    <div class="g2">
+      <div class="f"><label>Clinician Name</label><input type="text"></div>
+      <div class="f"><label>Role</label><select><option value="">—</option><option>Registrar</option><option>Senior Registrar</option><option>Consultant</option><option>Other</option></select></div>
+    </div>
+  </div>
+</div><!-- end p3 -->
+
+</div><!-- .panels -->
+
+<footer>
+  <strong>Created by Dr Vidhu Khare</strong><br>
+  <div class="cite">NCCN Breast Cancer v3.2026 &amp; Screening v1.2026 · NICE NG12 (2025) &amp; NG101 · ASBrS 2026 · ASBrS High-Risk Lesions 2024 · ASBrS/SBI Fibroepithelial Lesions JAMA Surgery 2025 · ESMO Early BC 2024 &amp; MBC Living Guideline 2025 · ACR BI-RADS v2025 · ASCO Follow-Up JCO &amp; Survivorship 2024 · ACCC Transitions of Care 2024 · BJC Survivorship Review 2025</div>
+</footer>
+
+<script>
+// DOB → AGE AUTO-CALC
+function calcAge(dobId, ageId){
+  const dob=new Date(document.getElementById(dobId).value);
+  const el=document.getElementById(ageId);
+  if(isNaN(dob.getTime())){el.value='';return;}
+  const today=new Date();
+  let age=today.getFullYear()-dob.getFullYear();
+  const m=today.getMonth()-dob.getMonth();
+  if(m<0||(m===0&&today.getDate()<dob.getDate()))age--;
+  el.value=age>=0?age:'';
+}
+
+// TAB SWITCHING
+function sw(i){
+  document.querySelectorAll('.tab').forEach((t,j)=>t.classList.toggle('active',i===j));
+  document.querySelectorAll('.panel').forEach((p,j)=>p.classList.toggle('active',i===j));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// YES/NO TOGGLE (supports data-cond for Yes, data-cond-no for No)
+function ynt(btn){
+  const yn=btn.parentElement;
+  const isY=btn.classList.contains('yn-y');
+  yn.querySelectorAll('button').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  const cY=yn.dataset.cond, cN=yn.dataset.condNo;
+  if(cY){const el=document.getElementById(cY);if(el)el.classList.toggle('show',isY);}
+  if(cN){const el=document.getElementById(cN);if(el)el.classList.toggle('show',!isY);}
+}
+
+// PILL TOGGLE (multi-select; optional conditional show)
+function pill(el,condId){
+  el.classList.toggle('on');
+  if(condId){const c=document.getElementById(condId);if(c)c.classList.toggle('show',el.classList.contains('on'));}
+}
+
+// CC PILLS (chief complaint — also toggle associated cards)
+function pillCC(el,cardId){
+  el.classList.toggle('on');
+  if(cardId){const c=document.getElementById(cardId);if(c)c.classList.toggle('show',el.classList.contains('on'));}
+}
+
+// NRS SCALE
+function nrst(btn){
+  btn.parentElement.querySelectorAll('.nb').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+}
+
+// VISIT TYPE (New / Referred)
+function visitType(el,type){
+  document.querySelectorAll('#vtype-pills .pill').forEach(p=>p.classList.remove('on'));
+  el.classList.add('on');
+  const r=document.getElementById('ref-section');
+  if(r)r.classList.toggle('show',type==='ref');
+}
+
+// MENOPAUSE CONDITIONAL
+function menoChg(selId,postId,lmpId){
+  const v=document.getElementById(selId).value;
+  const post=document.getElementById(postId);
+  const lmp=document.getElementById(lmpId);
+  if(post)post.classList.toggle('show',v==='post');
+  if(lmp)lmp.style.display=(v==='pre'||v==='peri')?'block':'none';
+}
+document.addEventListener('DOMContentLoaded', applyDefaults);
+
+// ── STATE COLLECTION ─────────────────────────────────────────
+function collectState(){
+  const s={tab:0,inputs:[],selects:[],textareas:[],checkboxes:[],buttons:[]};
+  document.querySelectorAll('.tab').forEach((t,i)=>{if(t.classList.contains('active'))s.tab=i;});
+  document.querySelectorAll('input[type=text],input[type=number],input[type=date]').forEach(el=>s.inputs.push(el.value));
+  document.querySelectorAll('select').forEach(el=>s.selects.push(el.value));
+  document.querySelectorAll('textarea').forEach(el=>s.textareas.push(el.value));
+  document.querySelectorAll('input[type=checkbox]').forEach(el=>s.checkboxes.push(el.checked));
+  document.querySelectorAll('.yn-y,.yn-n,.nb,.pill').forEach(b=>s.buttons.push(b.classList.contains('on')));
+  return s;
+}
+
+function restoreState(s){
+  if(s.tab!==undefined)sw(s.tab);
+  const inp=document.querySelectorAll('input[type=text],input[type=number],input[type=date]');
+  s.inputs&&s.inputs.forEach((v,i)=>{if(inp[i])inp[i].value=v;});
+  const sel=document.querySelectorAll('select');
+  s.selects&&s.selects.forEach((v,i)=>{if(sel[i])sel[i].value=v;});
+  const ta=document.querySelectorAll('textarea');
+  s.textareas&&s.textareas.forEach((v,i)=>{if(ta[i])ta[i].value=v;});
+  const cb=document.querySelectorAll('input[type=checkbox]');
+  s.checkboxes&&s.checkboxes.forEach((v,i)=>{if(cb[i])cb[i].checked=v;});
+  const bt=document.querySelectorAll('.yn-y,.yn-n,.nb,.pill');
+  s.buttons&&s.buttons.forEach((on,i)=>{if(bt[i])bt[i].classList.toggle('on',on);});
+  // Re-trigger all YN conditionals
+  document.querySelectorAll('.yn').forEach(yn=>{
+    const act=yn.querySelector('button.on');
+    if(!act)return;
+    const isY=act.classList.contains('yn-y');
+    const cY=yn.dataset.cond,cN=yn.dataset.condNo;
+    if(cY){const el=document.getElementById(cY);if(el)el.classList.toggle('show',isY);}
+    if(cN){const el=document.getElementById(cN);if(el)el.classList.toggle('show',!isY);}
+  });
+  // Visit type pills
+  const vt=document.querySelectorAll('#vtype-pills .pill');
+  const rs=document.getElementById('ref-section');
+  if(rs&&vt.length)rs.classList.toggle('show',vt[1]&&vt[1].classList.contains('on'));
+  // CC pills
+  const ccMap={0:'cc-lump',1:'cc-pain',2:'cc-nd',3:'cc-skin'};
+  document.querySelectorAll('#cc-pills .pill').forEach((p,i)=>{
+    const c=ccMap[i];if(c){const el=document.getElementById(c);if(el)el.classList.toggle('show',p.classList.contains('on'));}
+  });
+  menoChg('meno-sel0','meno-post0','lmp0');
+}
+
+function applyDefaults(){
+  ['exam0','exam1','exam2','exam3'].forEach(id=>{
+    const yn=document.querySelector(`[data-cond="${id}"]`);
+    if(yn){const yb=yn.querySelector('.yn-y');if(yb)yb.classList.add('on');}
+    const c=document.getElementById(id);if(c)c.classList.add('show');
+  });
+  const vt=document.querySelectorAll('#vtype-pills .pill');
+  if(vt[0])vt[0].classList.add('on');
+  const lmp=document.getElementById('lmp0');if(lmp)lmp.style.display='none';
+}
+
+// ── SAVE & SHARE ──────────────────────────────────────────────
+function saveShare(){
+  const state=collectState();
+  const json=JSON.stringify(state);
+  let html=document.documentElement.outerHTML;
+  const inject=`\n<script id="__sjson__" type="application/json">${json}<\/script>\n`+
+    `<script>document.addEventListener('DOMContentLoaded',function(){`+
+    `var el=document.getElementById('__sjson__');`+
+    `if(el){try{restoreState(JSON.parse(el.textContent));}catch(e){console.error(e);}}`+
+    `});<\/script>`;
+  html=html.replace('</body>',inject+'\n</body>');
+  // Build filename: Firstname_Lastname_Tab_Date
+  const tabIdx=state.tab;
+  const nameEl=document.querySelector(`#p${tabIdx} input[placeholder="First, Last"]`);
+  let firstName='',lastName='';
+  if(nameEl&&nameEl.value.trim()){
+    const parts=nameEl.value.trim().split(/[\s,]+/).filter(Boolean);
+    firstName=parts[0]||'';
+    lastName=parts.slice(1).join('')||'';
+  }
+  const namePart=(firstName&&lastName)?`${firstName}_${lastName}`:(firstName||lastName||'patient');
+  const tabSuffix=['New','Benign','OnRx','FollowUp'][tabIdx]||'Form';
+  const dt=new Date().toISOString().slice(0,10);
+  const blob=new Blob([html],{type:'text/html;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download=`${namePart}_${tabSuffix}_${dt}.html`;
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+
+// ── LOAD FORM ─────────────────────────────────────────────────
+function loadForm(input){
+  const file=input.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      const doc=new DOMParser().parseFromString(e.target.result,'text/html');
+      const el=doc.getElementById('__sjson__');
+      if(el){restoreState(JSON.parse(el.textContent));}
+      else{alert('No saved form data found in this file.');}
+    }catch(err){alert('Could not load form: '+err.message);}
+    input.value='';
+  };
+  reader.readAsText(file);
+}
+
+// ── RESET ─────────────────────────────────────────────────────
+function resetForm(){
+  if(!confirm('Reset all entries? All data will be lost.'))return;
+  document.querySelectorAll('input[type=text],input[type=number],input[type=date]').forEach(el=>el.value='');
+  document.querySelectorAll('select').forEach(el=>el.selectedIndex=0);
+  document.querySelectorAll('textarea').forEach(el=>el.value='');
+  document.querySelectorAll('input[type=checkbox]').forEach(el=>el.checked=false);
+  document.querySelectorAll('.yn-y,.yn-n,.nb,.pill').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.cond').forEach(c=>c.classList.remove('show'));
+  applyDefaults();sw(0);
+}
+
+// ── SMART PRINT ──────────────────────────────────────────────
+function isVis(el){
+  let c=el.parentElement;
+  while(c){
+    if(c.classList&&c.classList.contains('panel'))break;
+    if(c.classList&&c.classList.contains('cond')&&!c.classList.contains('show'))return false;
+    c=c.parentElement;
+  }
+  return true;
+}
+
+function getDirectChild(parent,selector){
+  return Array.from(parent.children).find(c=>c.matches&&c.matches(selector))||null;
+}
+
+function extractField(f){
+  const lEl=getDirectChild(f,'label')||getDirectChild(f,'.flabel');
+  if(!lEl)return null;
+  const lbl=lEl.textContent.trim().replace(/\s+/g,' ');
+  let val='',cls='';
+
+  // Yes/No
+  const yn=getDirectChild(f,'.yn');
+  if(yn){
+    const act=yn.querySelector('button.on');
+    if(!act)return null; // unanswered — skip
+    val=act.textContent.trim();
+    cls=act.classList.contains('yn-y')?'yes':'no';
+  }
+  // Select
+  if(!val){const s=getDirectChild(f,'select');if(s&&s.value)val=s.options[s.selectedIndex].text;}
+  // Input
+  if(!val){const i=f.querySelector(':scope>input:not([type=checkbox])');if(i&&i.value)val=i.value;}
+  // Textarea
+  if(!val){const t=getDirectChild(f,'textarea');if(t&&t.value.trim())val=t.value.trim();}
+  // Pills
+  if(!val){const ps=f.querySelectorAll(':scope>.pills>.pill.on');if(ps.length)val=[...ps].map(p=>p.textContent.trim()).join(' · ');}
+  // NRS
+  if(!val){const n=f.querySelector(':scope>.nrs>.nb.on');if(n)val=n.textContent.trim()+'/10';}
+
+  return val?{lbl,val,cls}:null;
+}
+
+function generatePrint(){
+  const panel=document.querySelector('.panel.active');
+  const tabName=document.querySelector('.tab.active').textContent.trim();
+  const today=new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+
+  // Patient name from first text input
+  let pName='';
+  const ni=panel.querySelector('input[placeholder="First, Last"]');
+  if(ni&&ni.value)pName=ni.value;
+
+  const sections=[];
+
+  // Process regular cards
+  panel.querySelectorAll('.card').forEach(card=>{
+    if(!isVis(card))return;
+    const ctitle=card.querySelector('.ctitle,.ctitle-clin');
+    if(!ctitle)return;
+    const isClin=card.classList.contains('card-clin');
+    const title=ctitle.textContent.trim();
+    const items=[];
+
+    // .f fields
+    card.querySelectorAll('.f').forEach(f=>{
+      if(!isVis(f))return;
+      const item=extractField(f);
+      if(item)items.push(item);
+    });
+
+    // Checklist (documents)
+    const chk=card.querySelector('.chklist');
+    if(chk&&isVis(chk)){
+      const checked=[...chk.querySelectorAll('input[type=checkbox]:checked')].map(c=>c.closest('label').textContent.trim());
+      const unchecked=[...chk.querySelectorAll('input[type=checkbox]:not(:checked)')].map(c=>c.closest('label').textContent.trim());
+      if(checked.length)items.push({lbl:'Documents received',val:checked.join(' · '),cls:'yes'});
+      if(unchecked.length)items.push({lbl:'Outstanding',val:unchecked.join(' · '),cls:'no'});
+    }
+
+    if(items.length)sections.push({title,items,isClin});
+  });
+
+  // Also process cards inside .cond wrappers (e.g. referral section)
+  panel.querySelectorAll('.cond.show>.card').forEach(card=>{
+    const ctitle=card.querySelector('.ctitle');
+    if(!ctitle)return;
+    const title=ctitle.textContent.trim();
+    // Already processed if card is child of panel directly — avoid double
+    if(card.parentElement===panel)return;
+    const items=[];
+    card.querySelectorAll('.f').forEach(f=>{
+      if(!isVis(f))return;
+      const item=extractField(f);
+      if(item)items.push(item);
+    });
+    const chk=card.querySelector('.chklist');
+    if(chk){
+      const checked=[...chk.querySelectorAll('input[type=checkbox]:checked')].map(c=>c.closest('label').textContent.trim());
+      const unchecked=[...chk.querySelectorAll('input[type=checkbox]:not(:checked)')].map(c=>c.closest('label').textContent.trim());
+      if(checked.length)items.push({lbl:'Documents received',val:checked.join(' · '),cls:'yes'});
+      if(unchecked.length)items.push({lbl:'Outstanding',val:unchecked.join(' · '),cls:'no'});
+    }
+    if(items.length)sections.push({title,items});
+  });
+
+  if(!sections.length){
+    alert('No data entered. Please complete the form before printing.');
+    return;
+  }
+
+  const html=buildPrint(tabName,pName,today,sections);
+  const w=window.open('','_blank','width=820,height=1000');
+  w.document.open();w.document.write(html);w.document.close();
+  setTimeout(()=>{try{w.focus();w.print();}catch(e){}},400);
+}
+
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function buildPrint(tab,patient,date,sections){
+  const secHtml=sections.map(s=>{
+    const rows=s.items.map(it=>{
+      const long=it.val.length>55;
+      if(long)return`<div class="long"><span class="lb">${esc(it.lbl)}: </span><span class="vl ${it.cls}">${esc(it.val)}</span></div>`;
+      return`<div class="it"><span class="lb">${esc(it.lbl)}</span><span class="vl ${it.cls}">${esc(it.val)}</span></div>`;
+    }).join('');
+    const sc=s.isClin?'sec sec-clin':'sec';
+    const shc=s.isClin?'sh sh-clin':'sh';
+    return`<div class="${sc}"><div class="${shc}">${esc(s.title)}</div><div class="grid">${rows}</div></div>`;
+  }).join('');
+
+  return`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Assessment — ${esc(patient||tab)}</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;font-size:10.5px;padding:14px;color:#111;line-height:1.4}
+.hdr{background:#1a4a5c;color:#fff;padding:10px 14px;margin-bottom:12px;border-radius:4px;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+.hdr h1{font-size:13px;font-weight:700}
+.hdr p{font-size:9.5px;opacity:.8;margin-top:2px}
+.sec{margin-bottom:10px;page-break-inside:avoid}
+.sh{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:#1a4a5c;border-bottom:1.5px solid #1a4a5c;padding-bottom:3px;margin-bottom:6px}
+.grid{display:flex;flex-wrap:wrap;gap:3px 16px}
+.it{display:flex;gap:4px;align-items:baseline;min-width:150px}
+.long{width:100%;display:flex;gap:4px;align-items:baseline}
+.lb{font-size:8.5px;color:#777;font-weight:700;text-transform:uppercase;letter-spacing:.2px;flex-shrink:0}
+.vl{font-size:10.5px;color:#111}
+.yes{color:#1a6e35;font-weight:700}
+.no{color:#aa2020;font-weight:700}
+.ft{margin-top:12px;padding-top:6px;border-top:1px solid #ccc;font-size:8.5px;color:#888}
+.sec-clin{background:#fdf0f3;border-radius:4px;padding:6px 8px;margin-top:12px}
+.sh-clin{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:#9c2060;border-bottom:1.5px solid #e0aac0;padding-bottom:3px;margin-bottom:6px}
+@media print{body{padding:8px}.hdr{print-color-adjust:exact;-webkit-print-color-adjust:exact}.sec-clin{background:#fdf0f3!important;print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+</style></head><body>
+<div class="hdr"><h1>Breast Oncology Assessment — ${esc(tab)}</h1>
+${patient?`<p>Patient: ${esc(patient)}</p>`:''}
+<p>Date: ${esc(date)}</p></div>
+${secHtml}
+<div class="ft">Created by <strong>Dr Vidhu Khare</strong> — Breast Surgical Oncologist &nbsp;|&nbsp;
+NCCN v3.2026 · NICE NG12/NG101 · ASBrS 2026 · ESMO 2024 · ACR BI-RADS v2025 · ASCO 2024</div>
+</body></html>`;
+}
+</script>
+</body>
+</html>
