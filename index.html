@@ -1473,7 +1473,7 @@ function applyDefaults(){
 }
 
 // ── SAVE & SHARE ──────────────────────────────────────────────
-function saveShare(){
+async function saveShare(){
   const state=collectState();
   const json=JSON.stringify(state);
   let html=document.documentElement.outerHTML;
@@ -1495,10 +1495,25 @@ function saveShare(){
   const namePart=(firstName&&lastName)?`${firstName}_${lastName}`:(firstName||lastName||'patient');
   const tabSuffix=['New','Benign','OnRx','FollowUp'][tabIdx]||'Form';
   const dt=new Date().toISOString().slice(0,10);
+  const filename=`${namePart}_${tabSuffix}_${dt}.html`;
   const blob=new Blob([html],{type:'text/html;charset=utf-8'});
+  // iOS Safari: use Web Share API (shows native share sheet — Save to Files, AirDrop, Mail, etc.)
+  if(navigator.canShare){
+    const file=new File([blob],filename,{type:'text/html'});
+    if(navigator.canShare({files:[file]})){
+      try{
+        await navigator.share({files:[file],title:filename});
+        return;
+      }catch(e){
+        if(e.name==='AbortError')return; // user cancelled — do nothing
+        // other error: fall through to blob download below
+      }
+    }
+  }
+  // Desktop / Android: standard blob download
   const url=URL.createObjectURL(blob);
   const a=document.createElement('a');
-  a.href=url;a.download=`${namePart}_${tabSuffix}_${dt}.html`;
+  a.href=url;a.download=filename;
   document.body.appendChild(a);a.click();document.body.removeChild(a);
   setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
