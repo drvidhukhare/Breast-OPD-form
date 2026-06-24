@@ -1476,13 +1476,19 @@ function applyDefaults(){
 async function saveShare(){
   const state=collectState();
   const json=JSON.stringify(state);
-  let html=document.documentElement.outerHTML;
-  const inject=`\n<script id="__sjson__" type="application/json">${json}<\/script>\n`+
-    `<script>document.addEventListener('DOMContentLoaded',function(){`+
+  // escape '<' so free-text fields containing a closing script/body tag can't corrupt the file
+  const safeJson=json.replace(/</g,'\\u003c');
+  const inject=`\n<script id="__sjson__" type="application/json">${safeJson}<\/script>\n`+
+    `<script id="__sload__">document.addEventListener('DOMContentLoaded',function(){`+
     `var el=document.getElementById('__sjson__');`+
     `if(el){try{restoreState(JSON.parse(el.textContent));}catch(e){console.error(e);}}`+
     `});<\/script>`;
-  html=html.replace('</body>',inject+'\n</body>');
+  // strip any prior injected save block so re-saving a loaded file doesn't leave stale data
+  ['__sjson__','__sload__'].forEach(id=>{const n=document.getElementById(id);if(n)n.remove();});
+  let html='<!DOCTYPE html>\n'+document.documentElement.outerHTML;
+  // inject before the REAL closing </body> — NOT the literal "</body>" inside buildPrint's print template
+  const bodyClose=html.lastIndexOf('</body>');
+  html=html.slice(0,bodyClose)+inject+'\n'+html.slice(bodyClose);
   // Build filename: Firstname_Lastname_Tab_Date
   const tabIdx=state.tab;
   const nameEl=document.querySelector(`#p${tabIdx} input[placeholder="First, Last"]`);
